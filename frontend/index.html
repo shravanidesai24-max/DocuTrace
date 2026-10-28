@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocuTrace — Intelligent Document Verification & Similarity Detection System</title>
+  <meta name="description" content="DocuTrace: Smart document plagiarism detection and authenticity verification system. Upload, compare and verify documents with instant results.">
+  
+  <!-- Modern Typography from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css?v=3.2">
+</head>
+<body>
+  <!-- Background Glow & Grid Canvas -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="grid-overlay"></div>
+
+  <!-- Main Application Wrapper -->
+  <div class="app-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="app-sidebar">
+      <div class="brand-container">
+        <div class="brand-logo">
+          <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" rx="8" fill="url(#brand-grad)" />
+            <path d="M9 8H20L24 12V24H9V8Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 17L17 20L23 14" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M13 13H17" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="brand-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#4F46E5"/>
+                <stop offset="1" stop-color="#06B6D4"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">DocuTrace</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu" aria-label="Main Navigation">
+        <button class="nav-item active" data-tab="dashboard" id="nav-dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          <span>Dashboard</span>
+        </button>
+
+        <button class="nav-item" data-tab="upload" id="nav-upload">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span>Upload & Corpus</span>
+        </button>
+
+        <button class="nav-item" data-tab="compare" id="nav-compare">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></svg>
+          <span>Comparison & Diff</span>
+        </button>
+
+        <button class="nav-item" data-tab="verify" id="nav-verify">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          <span>Authenticity & Verify</span>
+        </button>
+
+        <button class="nav-item" data-tab="benchmark" id="nav-benchmark">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Benchmark Lab</span>
+        </button>
+
+        <button class="nav-item" data-tab="visualizer" id="nav-visualizer">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          <span>Analysis Visualizer</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="course-meta">
+          <small>Smart Document Analysis Platform</small>
+          <small>Powered by Advanced Matching Technology</small>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="main-content-view">
+      
+      <!-- Top Header Bar -->
+      <header class="app-header">
+        <div class="header-left">
+          <h1 class="page-title" id="page-heading">System Overview & Dashboard</h1>
+          <p class="page-subtitle" id="page-subheading">Intelligent multi-algorithm verification and similarity analysis platform</p>
+        </div>
+        <div class="header-actions">
+
+          <button class="btn btn-primary" id="btn-header-upload">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Upload Document
+          </button>
+        </div>
+      </header>
+
+      <!-- TAB 1: DASHBOARD -->
+      <section class="tab-panel active" id="panel-dashboard">
+        <!-- Metric Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon-wrapper cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="stat-data">
+              <span class="stat-value" id="stat-total-docs">5</span>
+              <span class="stat-label">Documents in Corpus</span>
+            </div>
+            <div class="stat-tag">Ready for Comparison</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrapper emerald">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="stat-data">
+              <span class="stat-value" id="stat-exact-dups">1</span>
+              <span class="stat-label">Exact Duplicates Detected</span>
+            </div>
+            <div class="stat-tag">Instant Hash Detection</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrapper amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="stat-data">
+              <span class="stat-value" id="stat-suspicious-docs">1</span>
+              <span class="stat-label">Suspicious Records Flagged</span>
+            </div>
+            <div class="stat-tag">Homoglyphs & Date Paradox</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrapper indigo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="stat-data">
+              <span class="stat-value">&lt; 1.8 ms</span>
+              <span class="stat-label">Average Analysis Speed</span>
+            </div>
+            <div class="stat-tag">Ultra-Fast Processing</div>
+          </div>
+        </div>
+
+        <!-- Real-Life Problem Scenarios Row -->
+        <div class="section-title-group">
+          <h2 class="section-title">Real-Life Test Scenarios (From DocuTrace Spec)</h2>
+          <p class="section-subtitle">Click any scenario card below to immediately run DocuTrace's multi-algorithm analysis</p>
+        </div>
+
+        <div class="scenario-grid">
+          <!-- Problem 1 Card -->
+          <div class="scenario-card" id="card-scenario-1" data-scenario="smart_campus">
+            <div class="scenario-badge badge-amber">Problem 1: Plagiarism & Paraphrasing Test</div>
+            <h3 class="scenario-title">Research Papers Plagiarism & Diff Test</h3>
+            <p class="scenario-desc">Compares Original (Research_Paper_01) vs Suspect (Research_Paper_02) using KMP, Rabin-Karp, Edit Distance DP, and Jaccard.</p>
+            <div class="scenario-meta">
+              <div class="meta-row">
+                <span class="meta-tag meta-ref">Original / Reference</span>
+                <span class="meta-title" id="sc1-doc-a">Research_Paper_01</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-tag meta-suspect">Suspect / Submitted</span>
+                <span class="meta-title" id="sc1-doc-b">Research_Paper_02</span>
+              </div>
+            </div>
+            <button class="btn btn-scenario" onclick="event.stopPropagation(); loadAndRunScenario('smart_campus')">
+              Run Plagiarism & Diff Test &rarr;
+            </button>
+          </div>
+
+          <!-- Problem 2 Card -->
+          <div class="scenario-card" id="card-scenario-2" data-scenario="duplicate">
+            <div class="scenario-badge badge-emerald">Problem 2: Exact Duplicate Detection</div>
+            <h3 class="scenario-title">Cryptographic SHA-256 Identity Check</h3>
+            <p class="scenario-desc">Computes 256-bit SHA-256 digests in O(N) linear time to check if Suspect is an exact duplicate of Original.</p>
+            <div class="scenario-meta">
+              <div class="meta-row">
+                <span class="meta-tag meta-ref">Original / Reference</span>
+                <span class="meta-title" id="sc2-doc-a">Research_Paper_01</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-tag meta-suspect">Suspect / Submitted</span>
+                <span class="meta-title" id="sc2-doc-b">Research_Paper_02</span>
+              </div>
+            </div>
+            <button class="btn btn-scenario" onclick="event.stopPropagation(); loadAndRunScenario('duplicate')">
+              Detect Exact Duplicate &rarr;
+            </button>
+          </div>
+
+          <!-- Problem 3 Card -->
+          <div class="scenario-card" id="card-scenario-3" data-scenario="certificate">
+            <div class="scenario-badge badge-rose">Problem 3: Document Authenticity Audit</div>
+            <h3 class="scenario-title">Suspect Document Authenticity Audit</h3>
+            <p class="scenario-desc">Audits Suspect (Research_Paper_02) for Unicode homoglyphs, zero-width characters, digital signatures, and metadata integrity.</p>
+            <div class="scenario-meta">
+              <div class="meta-row">
+                <span class="meta-tag meta-suspect">Suspect / Submitted</span>
+                <span class="meta-title" id="sc3-doc-b">Research_Paper_02</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-tag meta-ref">Audit Target</span>
+                <span class="meta-title">Unicode Homoglyphs, Evasion & Metadata</span>
+              </div>
+            </div>
+            <button class="btn btn-scenario" onclick="event.stopPropagation(); loadAndRunScenario('certificate')">
+              Run Authenticity Audit &rarr;
+            </button>
+          </div>
+
+          <!-- Scenario 4 Card -->
+          <div class="scenario-card" id="card-scenario-4" data-scenario="distinct">
+            <div class="scenario-badge badge-cyan">Problem 4: Independent Work & Divergence</div>
+            <h3 class="scenario-title">Lexical Diversity & Originality Verification</h3>
+            <p class="scenario-desc">Measures unique authorial sentences and vocabulary divergence between Research_Paper_01 and Research_Paper_02.</p>
+            <div class="scenario-meta">
+              <div class="meta-row">
+                <span class="meta-tag meta-ref">Original / Reference</span>
+                <span class="meta-title" id="sc4-doc-a">Research_Paper_01</span>
+              </div>
+              <div class="meta-row">
+                <span class="meta-tag meta-suspect">Suspect / Submitted</span>
+                <span class="meta-title" id="sc4-doc-b">Research_Paper_02</span>
+              </div>
+            </div>
+            <button class="btn btn-scenario" onclick="event.stopPropagation(); loadAndRunScenario('distinct')">
+              Verify Unique Contributions &rarr;
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- TAB 2: UPLOAD & CORPUS MANAGEMENT -->
+      <section class="tab-panel" id="panel-upload">
+        <div class="grid-2col">
+          <!-- Upload Box -->
+          <div class="panel-card glass-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">Upload New Document</h3>
+                <p class="panel-subtitle">Upload PDF, DOCX, TXT files or paste text directly</p>
+              </div>
+            </div>
+
+            <!-- Drag & Drop Zone -->
+            <div class="drop-zone" id="file-drop-zone">
+              <input type="file" id="file-input" class="file-input-hidden" accept=".pdf,.docx,.doc,.txt">
+              <div class="drop-zone-content">
+                <div class="drop-zone-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                </div>
+                <div class="drop-zone-text">
+                  <strong>Click to select a file</strong> or drag & drop here
+                </div>
+                <p class="drop-zone-hint">Supports PDF, Word (.docx), and Plain Text (.txt)</p>
+                <div class="selected-file-badge" id="selected-file-display" style="display: none;"></div>
+              </div>
+            </div>
+
+            <div class="divider-text">OR PASTE TEXT DIRECTLY</div>
+
+            <div class="form-group">
+              <label for="upload-doc-title">Document Title / Label</label>
+              <input type="text" id="upload-doc-title" class="form-input" placeholder="e.g. Student Assignment Submission — Group 4">
+            </div>
+
+            <div class="form-group">
+              <label for="upload-doc-category">Document Category</label>
+              <select id="upload-doc-category" class="form-select">
+                <option value="Academic Assignment">Academic Assignment / Report</option>
+                <option value="Certificate or Credential">Certificate or Official Credential</option>
+                <option value="Research Paper">Research Paper / Thesis</option>
+                <option value="General Document">General Document</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="upload-doc-text">Paste Text Content</label>
+              <textarea id="upload-doc-text" class="form-textarea" rows="5" placeholder="Paste extracted or raw text here..."></textarea>
+              <div class="textarea-counter">
+                <span id="char-counter">0 characters</span> &bull; <span id="word-counter">0 words</span>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" id="btn-submit-upload">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Extract Text & Add to Corpus
+              </button>
+              <button class="btn btn-secondary" id="btn-clear-upload">Clear Form</button>
+            </div>
+          </div>
+
+          <!-- Corpus Document List -->
+          <div class="panel-card glass-panel">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">Document Repository / Corpus</h3>
+                <p class="panel-subtitle">Available documents for comparison and verification</p>
+              </div>
+              <button class="btn btn-sm btn-secondary" id="btn-refresh-corpus">Refresh</button>
+            </div>
+
+            <div class="corpus-table-container">
+              <table class="data-table" id="table-corpus">
+                <thead>
+                  <tr>
+                    <th>Document</th>
+                    <th>Category</th>
+                    <th>Words</th>
+                    <th>SHA-256 Hash</th>
+                    <th style="min-width: 260px;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="corpus-tbody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: COMPARISON & PLAGIARISM DIFF -->
+      <section class="tab-panel" id="panel-compare">
+        <!-- Document Selection Controls -->
+        <div class="panel-card glass-panel">
+          <div class="compare-selector-grid">
+            <div class="selector-box">
+              <label class="selector-label" for="select-doc-a">Document A (Reference / Original)</label>
+              <select id="select-doc-a" class="form-select selector-highlight-a">
+                <!-- Populated via JS -->
+              </select>
+            </div>
+
+            <div class="compare-center-icon">
+              <button class="btn-swap" id="btn-swap-docs" title="Swap Document A and Document B">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"/></svg>
+              </button>
+            </div>
+
+            <div class="selector-box">
+              <label class="selector-label" for="select-doc-b">Document B (Suspect / Submitted)</label>
+              <select id="select-doc-b" class="form-select selector-highlight-b">
+                <!-- Populated via JS -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Analysis Settings -->
+          <details class="algo-params-details" style="margin-top: 1rem;">
+            <summary class="algo-params-summary">
+              <span>Advanced Analysis Settings</span>
+              <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="algo-params-grid">
+              <div class="param-group">
+                <label for="param-jaccard-ngram">Phrase Comparison Granularity</label>
+                <select id="param-jaccard-ngram" class="form-select form-select-sm">
+                  <option value="1">Single Words</option>
+                  <option value="2" selected>Word Pairs (Recommended)</option>
+                  <option value="3">Word Triplets</option>
+                </select>
+              </div>
+
+              <div class="param-group">
+                <label for="param-edit-mode">Comparison Level</label>
+                <select id="param-edit-mode" class="form-select form-select-sm">
+                  <option value="word" selected>Word-Level Analysis</option>
+                  <option value="char">Character-Level Analysis</option>
+                </select>
+              </div>
+
+              <div class="param-group">
+                <label for="param-rk-window">Passage Detection Window</label>
+                <select id="param-rk-window" class="form-select form-select-sm">
+                  <option value="3">3 Words</option>
+                  <option value="4" selected>4 Words (Recommended)</option>
+                  <option value="6">6 Words</option>
+                  <option value="8">8 Words</option>
+                </select>
+              </div>
+            </div>
+          </details>
+
+          <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button class="btn btn-primary" id="btn-trigger-compare">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Execute Multi-Algorithm Comparison
+            </button>
+          </div>
+        </div>
+
+        <!-- Comparison Output Area -->
+        <div id="compare-results-container" style="display: none; margin-top: 1.5rem;">
+          
+          <!-- Exact Duplicate Banner (Appears if SHA-256 matches) -->
+          <div class="alert-banner alert-emerald" id="banner-duplicate-status" style="display: none;">
+            <div class="alert-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="alert-content">
+              <h4 class="alert-title" id="dup-banner-title">Exact Duplicate Detected!</h4>
+              <p class="alert-desc" id="dup-banner-desc">Both documents produce identical SHA-256 hashes, confirming identical content.</p>
+            </div>
+          </div>
+
+          <!-- Overall Composite Plagiarism Score Hero Card -->
+          <div class="panel-card glass-panel" style="margin-top: 1rem;">
+            <div class="score-hero-grid">
+              <div class="score-dial-wrapper">
+                <div class="circular-score" id="composite-score-circle">
+                  <svg class="score-svg" viewBox="0 0 120 120">
+                    <circle class="score-bg" cx="60" cy="60" r="52"></circle>
+                    <circle class="score-progress" id="score-progress-ring" cx="60" cy="60" r="52"></circle>
+                  </svg>
+                  <div class="score-number-group">
+                    <span class="score-number" id="display-composite-score">84.5%</span>
+                    <span class="score-sub">Similarity</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="score-narrative">
+                <div class="classification-badge" id="display-classification-badge">HIGH SIMILARITY (PARAPHRASED)</div>
+                <h3 class="narrative-heading" id="display-narrative-title">Substantial Text Matching Detected</h3>
+                <p class="narrative-body" id="display-narrative-text">
+                  The submitted document shares high sentence structures and word shingles with the reference document. Key words have been modified or replaced with synonyms, which was captured via Dynamic Programming Edit Distance and Rolling Hashes.
+                </p>
+
+                <div class="score-breakdown-chips">
+                  <div class="chip chip-emerald">
+                    <span class="chip-label">Exact Sentence Matches:</span>
+                    <strong id="chip-exact-sentences">0</strong>
+                  </div>
+                  <div class="chip chip-amber">
+                    <span class="chip-label">Modified/Paraphrased:</span>
+                    <strong id="chip-modified-sentences">4</strong>
+                  </div>
+                  <div class="chip chip-cyan">
+                    <span class="chip-label">Unique Sentences:</span>
+                    <strong id="chip-unique-sentences">1</strong>
+                  </div>
+                  <div class="chip chip-indigo">
+                    <span class="chip-label">Analysis Time:</span>
+                    <strong id="chip-execution-time">2.4 ms</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Analysis Breakdown Cards Grid -->
+          <div class="algo-breakdown-grid" style="margin-top: 1.5rem;">
+            <!-- Card 1: Phrase Matching -->
+            <div class="algo-card">
+              <div class="algo-card-header">
+                <span class="algo-card-badge cyan">Exact Phrase Matching</span>
+              </div>
+              <h4 class="algo-card-title">Phrase Detection</h4>
+              <p class="algo-card-info" id="kmp-card-detail">Searches for exact phrases and sentences copied from the reference document.</p>
+              <div class="algo-metric-row">
+                <span class="metric-label">Phrases Checked:</span>
+                <strong class="metric-val" id="kmp-phrases-count">3 phrases</strong>
+              </div>
+              <div class="algo-metric-row">
+                <span class="metric-label">Comparisons Made:</span>
+                <strong class="metric-val" id="kmp-comparisons-count">--</strong>
+              </div>
+            </div>
+
+            <!-- Card 2: Passage Matching -->
+            <div class="algo-card">
+              <div class="algo-card-header">
+                <span class="algo-card-badge indigo">Passage Matching</span>
+              </div>
+              <h4 class="algo-card-title">Multi-Word Passage Detection</h4>
+              <p class="algo-card-info" id="rk-card-detail">Identifies multi-word identical passages and blocks of copied text.</p>
+              <div class="algo-metric-row">
+                <span class="metric-label">Matching Passages:</span>
+                <strong class="metric-val" id="rk-passages-count">--</strong>
+              </div>
+              <div class="algo-metric-row">
+                <span class="metric-label">Coverage Rate:</span>
+                <strong class="metric-val" id="rk-coverage-ratio">--</strong>
+              </div>
+            </div>
+
+            <!-- Card 3: Edit Analysis -->
+            <div class="algo-card">
+              <div class="algo-card-header">
+                <span class="algo-card-badge amber">Edit Analysis</span>
+              </div>
+              <h4 class="algo-card-title">Text Modification Detection</h4>
+              <p class="algo-card-info" id="ed-card-detail">Detects word substitutions, insertions, and deletions to find paraphrased content.</p>
+              <div class="algo-metric-row">
+                <span class="metric-label">Modifications Found:</span>
+                <strong class="metric-val" id="ed-operations-count">--</strong>
+              </div>
+              <div class="algo-metric-row">
+                <span class="metric-label">Similarity Score:</span>
+                <strong class="metric-val" id="ed-similarity-ratio">--</strong>
+              </div>
+            </div>
+
+            <!-- Card 4: Vocabulary Overlap -->
+            <div class="algo-card">
+              <div class="algo-card-header">
+                <span class="algo-card-badge emerald">Vocabulary Overlap</span>
+              </div>
+              <h4 class="algo-card-title">Word Similarity Analysis</h4>
+              <p class="algo-card-info" id="jac-card-detail">Measures vocabulary overlap between documents to identify shared language and concepts.</p>
+              <div class="algo-metric-row">
+                <span class="metric-label">Shared Words:</span>
+                <strong class="metric-val" id="jac-intersection-val">--</strong>
+              </div>
+              <div class="algo-metric-row">
+                <span class="metric-label">Overlap Score:</span>
+                <strong class="metric-val" id="jac-score-val">--</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dual-Pane Side-by-Side Sentence Alignment Diff Viewer / PDF Inspector -->
+          <div class="panel-card glass-panel" style="margin-top: 1.5rem;">
+            <div class="panel-header" style="flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;">
+              <div>
+                <h3 class="panel-title">Sentence-by-Sentence Plagiarism & Substitution Inspection</h3>
+                <p class="panel-subtitle">Visual inspection report highlighting copied duplicate text and word substitutions in PDF format</p>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+                <!-- View Mode Switcher -->
+                <div class="view-toggle-group">
+                  <button type="button" class="view-toggle-btn active" id="btn-view-pdf" title="View as formatted PDF document">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                      <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>PDF Format (Active)</span>
+                  </button>
+                  <button type="button" class="view-toggle-btn" id="btn-view-text" title="View as individual text cards">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <line x1="8" y1="6" x2="21" y2="6"></line>
+                      <line x1="8" y1="12" x2="21" y2="12"></line>
+                      <line x1="8" y1="18" x2="21" y2="18"></line>
+                      <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                      <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                      <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    </svg>
+                    <span>Text Cards View</span>
+                  </button>
+                </div>
+
+                <!-- Action Buttons -->
+                <button type="button" class="btn btn-secondary btn-sm" id="btn-open-pdf-tab" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 0.85rem; font-size: 0.82rem; border-radius: 6px;" title="Open PDF in a new browser tab">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                  <span>Open Fullscreen</span>
+                </button>
+
+                <button type="button" class="btn btn-primary btn-sm" id="btn-export-pdf" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 0.95rem; font-size: 0.82rem; font-weight: 600; border-radius: 6px; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Download PDF</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- PDF Viewer Container (Primary Default View) -->
+            <div id="pdf-viewer-wrapper" style="margin-top: 1rem; position: relative;">
+              <div id="pdf-loading-indicator" style="display: none; align-items: center; justify-content: center; gap: 0.75rem; padding: 3rem; background: var(--bg-surface); border: 1px dashed var(--border-medium); border-radius: 8px; color: var(--text-muted); font-size: 0.9rem;">
+                <svg style="animation: spin 1s linear infinite; width: 22px; height: 22px; color: var(--primary);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                  <path d="M4 12a8 8 0 0 1 8-8"></path>
+                </svg>
+                <span>Generating Sentence-by-Sentence Plagiarism & Substitution Inspection PDF...</span>
+              </div>
+              <iframe id="pdf-inspection-frame" style="width: 100%; height: 750px; border: 1px solid var(--border-light); border-radius: 8px; background: #ffffff; display: block;" title="Sentence-by-Sentence Plagiarism & Substitution Inspection PDF Report"></iframe>
+            </div>
+
+            <!-- Text Cards View (Alternative View) -->
+            <div id="text-view-wrapper" style="display: none; margin-top: 1rem;">
+              <div class="diff-legend" style="margin-bottom: 0.75rem;">
+                <span class="legend-item"><span class="legend-color legend-emerald"></span> Exact Match</span>
+                <span class="legend-item"><span class="legend-color legend-amber"></span> Paraphrased / Substituted</span>
+                <span class="legend-item"><span class="legend-color legend-muted"></span> Unique Content</span>
+              </div>
+              <div class="sentence-alignment-list" id="sentence-alignment-container">
+                <!-- Dynamically populated sentence comparison pairs -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: AUTHENTICITY & VERIFICATION -->
+      <section class="tab-panel" id="panel-verify">
+        <div class="panel-card glass-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Document Authenticity Verification Engine</h3>
+              <p class="panel-subtitle">Audits certificates, transcripts, and official records for tampering, metadata discrepancies, and evasion techniques</p>
+            </div>
+          </div>
+
+          <div class="verify-input-bar">
+            <div class="form-group" style="flex: 1;">
+              <label for="select-verify-doc">Select Suspect / Submitted Document to Verify (e.g. Research_Paper_02)</label>
+              <select id="select-verify-doc" class="form-select">
+                <!-- Populated via JS -->
+              </select>
+            </div>
+            <button class="btn btn-primary" id="btn-run-verification">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              Run Authenticity Audit
+            </button>
+          </div>
+        </div>
+
+        <!-- Verification Output Card (Professional Executive Portal) -->
+        <div id="verify-results-container" style="display: none; margin-top: 1.5rem;">
+          <!-- Top Executive Banner -->
+          <div class="auth-executive-banner" id="auth-exec-banner">
+            <div class="auth-banner-left">
+              <div class="auth-score-pill" id="auth-status-pill">
+                <span class="auth-pill-dot"></span>
+                <span id="display-trust-score-badge">100% TRUST SCORE</span>
+                <span class="auth-pill-sep">•</span>
+                <span id="display-trust-badge">VERIFIED GENUINE</span>
+              </div>
+              <h3 class="auth-doc-heading" id="auth-verified-doc-title">Research_Paper_02</h3>
+              <p class="auth-summary-desc" id="display-trust-summary">Document passed all metadata integrity, homoglyph scans, and signature checks with zero evasion artifacts.</p>
+            </div>
+            <div class="auth-banner-right">
+              <div class="auth-quick-stat">
+                <span class="auth-stat-label">Security Verdict</span>
+                <span class="auth-stat-value" id="auth-quick-verdict" style="color: var(--emerald);">PASS</span>
+              </div>
+              <div class="auth-quick-stat">
+                <span class="auth-stat-label">Anomalies</span>
+                <span class="auth-stat-value" id="auth-quick-anomalies" style="color: var(--emerald);">0 Flags</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Security Vectors Grid -->
+          <div class="auth-vectors-grid" id="auth-vectors-container" style="margin-top: 1.25rem;">
+            <!-- Populated via JS -->
+          </div>
+
+          <!-- 2 Columns: Document Provenance & Security Findings -->
+          <div class="grid-2col" style="margin-top: 1.25rem;">
+            <!-- Metadata & Technical Properties -->
+            <div class="panel-card glass-panel">
+              <div class="panel-header">
+                <div>
+                  <h4 class="panel-title">Document Provenance & Metadata</h4>
+                  <p class="panel-subtitle">Extracted file properties and timestamp timeline</p>
+                </div>
+              </div>
+              <div class="meta-property-table" id="metadata-property-table">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+            <!-- Detailed Findings Table -->
+            <div class="panel-card glass-panel">
+              <div class="panel-header">
+                <div>
+                  <h4 class="panel-title">Security & Authenticity Audit Findings</h4>
+                  <p class="panel-subtitle">Heuristic analysis of timestamps, unicode spoofs, and cryptographic seals</p>
+                </div>
+              </div>
+              <div class="findings-list" id="findings-container">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: BENCHMARK LAB -->
+      <section class="tab-panel" id="panel-benchmark">
+        <div class="panel-card glass-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Performance Benchmark Lab</h3>
+              <p class="panel-subtitle">Comparative runtime evaluation across varied document lengths</p>
+            </div>
+            <button class="btn btn-primary" id="btn-run-benchmark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Run Benchmark
+            </button>
+          </div>
+
+          <p class="benchmark-intro-text">
+            This lab measures the performance of DocuTrace's analysis engines across varied document lengths (10, 50, 100, 250, 500 words), providing insight into processing speed and accuracy at different scales.
+          </p>
+
+          <!-- Performance Benchmark Table (As requested in Section 7 of prompt) -->
+          <div class="table-responsive" style="margin-top: 1.5rem;">
+            <table class="data-table benchmark-table" id="table-benchmark-results">
+              <thead>
+                <tr>
+                  <th>Word Count</th>
+                  <th>Characters</th>
+                  <th>Phrase Match (ms)</th>
+                  <th>Comparisons</th>
+                  <th>Passage Match (ms)</th>
+                  <th>Passages Found</th>
+                  <th>Edit Analysis (ms)</th>
+                  <th>Vocabulary Match (ms)</th>
+                  <th>Total Time</th>
+                </tr>
+              </thead>
+              <tbody id="benchmark-tbody">
+                <tr>
+                  <td colspan="9" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                    Click "Run Benchmark" to start performance measurements.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Dynamic SVG Charts for Performance Analysis -->
+          <div class="benchmark-charts-grid" style="margin-top: 2rem;">
+            <div class="chart-card">
+              <h4 class="chart-title">Phrase & Passage Matching Performance</h4>
+              <p class="chart-desc">Comparative runtime of exact phrase detection vs multi-word passage matching engines.</p>
+              <div class="chart-canvas-container" id="chart-string-matching">
+                <svg id="svg-chart-matching" width="100%" height="240" viewBox="0 0 500 240"></svg>
+              </div>
+            </div>
+
+            <div class="chart-card">
+              <h4 class="chart-title">Edit & Vocabulary Analysis Performance</h4>
+              <p class="chart-desc">Runtime comparison of text modification detection vs vocabulary overlap analysis.</p>
+              <div class="chart-canvas-container" id="chart-similarity-methods">
+                <svg id="svg-chart-similarity" width="100%" height="240" viewBox="0 0 500 240"></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Performance Summary Card -->
+          <div class="complexity-table-card" style="margin-top: 2rem;">
+            <h4 class="complexity-card-title">Analysis Engine Overview</h4>
+            <div class="complexity-grid">
+              <div class="complexity-box">
+                <span class="comp-algo">Phrase Detection</span>
+                <div class="comp-row"><span>Best For:</span> <strong>Exact Copied Sentences</strong></div>
+                <div class="comp-row"><span>Speed:</span> <strong>Very Fast</strong></div>
+                <p class="comp-note">Instantly finds phrases that were copied word-for-word from the reference document.</p>
+              </div>
+
+              <div class="complexity-box">
+                <span class="comp-algo">Passage Matching</span>
+                <div class="comp-row"><span>Best For:</span> <strong>Copied Text Blocks</strong></div>
+                <div class="comp-row"><span>Speed:</span> <strong>Fast</strong></div>
+                <p class="comp-note">Detects multi-word identical passages and large blocks of copied content efficiently.</p>
+              </div>
+
+              <div class="complexity-box">
+                <span class="comp-algo">Edit Analysis</span>
+                <div class="comp-row"><span>Best For:</span> <strong>Paraphrased Content</strong></div>
+                <div class="comp-row"><span>Speed:</span> <strong>Moderate</strong></div>
+                <p class="comp-note">Finds content that was paraphrased by substituting, inserting, or deleting words.</p>
+              </div>
+
+              <div class="complexity-box">
+                <span class="comp-algo">Vocabulary Overlap</span>
+                <div class="comp-row"><span>Best For:</span> <strong>Overall Similarity</strong></div>
+                <div class="comp-row"><span>Speed:</span> <strong>Fast</strong></div>
+                <p class="comp-note">Measures shared vocabulary to give an overall document similarity score.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: ANALYSIS VISUALIZER -->
+      <section class="tab-panel" id="panel-visualizer">
+        <div class="panel-card glass-panel">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Interactive Analysis Visualizer</h3>
+              <p class="panel-subtitle">Step-by-step visualization of how DocuTrace compares and analyses documents</p>
+            </div>
+            <!-- Visualizer Sub-tabs -->
+            <div class="visualizer-tabs">
+              <button class="viz-tab active" data-algo="kmp">Phrase Matching</button>
+              <button class="viz-tab" data-algo="rabin_karp">Passage Detection</button>
+              <button class="viz-tab" data-algo="edit_distance">Edit Analysis</button>
+              <button class="viz-tab" data-algo="jaccard">Vocabulary Overlap</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Visualizer Controls Bar -->
+          <div class="viz-controls-bar">
+            <div class="form-group" style="flex: 1;">
+              <label for="viz-input-text1" id="viz-label-text1">Source Text / Haystack</label>
+              <input type="text" id="viz-input-text1" class="form-input" value="The Smart Campus System helps students report problems">
+            </div>
+            <div class="form-group" style="flex: 1;" id="viz-group-text2">
+              <label for="viz-input-text2" id="viz-label-text2">Pattern / Target Text</label>
+              <input type="text" id="viz-input-text2" class="form-input" value="Campus System">
+            </div>
+            <button class="btn btn-primary" id="btn-run-viz-step" style="align-self: flex-end;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Step-by-Step Compute
+            </button>
+          </div>
+
+          <!-- Visualizer Interactive Workspace Canvas -->
+          <div class="viz-workspace" id="viz-workspace-container">
+            <!-- Dynamically populated visualizer elements (LPS table, DP grid, Hash slide, Venn diagram) -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/api.js?v=3.2"></script>
+  <script src="js/visualizer.js?v=3.2"></script>
+  <script src="js/charts.js?v=3.2"></script>
+  <script src="js/app.js?v=3.2"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+Smart Campus IoT Architecture (Paraphrased Submission)
+Category: Student Submission
+Filename: Smart_Campus_Student_Submission_v2.pdf
+
+The Smart Campus System deploys distributed Internet of Things sensor networks to monitor resource allocation. Automated power consumption tracking diminishes utility expenses by forty percent during academic terms. Our unified framework gathers environmental metrics from classroom sensors and student portals. Security measures guarantee pupil privacy through end-to-end cryptographic safeguards. Subsequent research will examine autonomous electric shuttles across university transit corridors.

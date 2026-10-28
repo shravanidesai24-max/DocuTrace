@@ -1,0 +1,26 @@
+
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets and environment variables
+.env
+.env.*
+
+# Local database
+docutrace.db
+*.db-journal
+
+# Uploaded user documents
+uploads/*
+!uploads/.gitkeep
+
+# Generated frontend dependencies and builds
+node_modules/
+dist/
+frontend/dist/
+
+# Logs
+*.log

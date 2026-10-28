@@ -1,0 +1,5 @@
+Smart Campus IoT Architecture (Original Research)
+Category: Academic Research
+Filename: Smart_Campus_Original_v1.pdf
+
+The Smart Campus System deploys distributed Internet of Things sensor networks to monitor resource allocation. Automated energy consumption tracking reduces utility costs by forty percent during academic terms. Our centralized framework aggregates environmental metrics from classroom sensors and student portals. Security protocols guarantee student confidentiality through end-to-end cryptographic safeguards. Future development will incorporate predictive machine learning models to forecast campus parking demand.
